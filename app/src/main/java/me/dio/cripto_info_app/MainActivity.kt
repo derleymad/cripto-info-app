@@ -1,15 +1,16 @@
 package me.dio.cripto_info_app
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.CalendarContract
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import org.json.JSONObject
 import java.net.URL
-import java.util.*
 import javax.net.ssl.HttpsURLConnection
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +19,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sinalBTC: TextView
     private lateinit var sinalETH: TextView
     private lateinit var converterBTC: TextView
+    private lateinit var converterETH: TextView
     private lateinit var inputBTC: EditText
+    private lateinit var inputETH: EditText
+    private lateinit var btnBTC: Button
+    private lateinit var btnETH: Button
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,20 +32,30 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        resultBTC = findViewById<TextView>(R.id.priceBTC)
-        resultETH = findViewById<TextView>(R.id.priceETH)
-        sinalBTC = findViewById<TextView>(R.id.sinalBTC)
-        sinalETH = findViewById<TextView>(R.id.sinalETH)
-        converterBTC = findViewById<TextView>(R.id.converterBTC)
+        resultBTC = findViewById<TextView>(R.id.priceBTC)//LABEL
+        resultETH = findViewById<TextView>(R.id.priceETH)//LABEL
+        sinalBTC = findViewById<TextView>(R.id.sinalBTC)//LABEL
+        sinalETH = findViewById<TextView>(R.id.sinalETH)//LABEL
+        converterBTC = findViewById<TextView>(R.id.converterBTC) //LABEL
+        converterETH = findViewById<TextView>(R.id.converterETH) //LABEL
 
-        inputBTC = findViewById<EditText>(R.id.inputBTC)
-        var btnBTC = findViewById<Button>(R.id.btnBTC)
 
-        btnBTC.setOnClickListener {
-            calcular()
-        }
+
+        inputBTC = findViewById<EditText>(R.id.inputBTC) //INPUT BTC
+        inputETH = findViewById<EditText>(R.id.inputETH) //INPUT ETH
+        btnBTC = findViewById<Button>(R.id.btnBTC) //BUTTOM BTC
+        btnETH = findViewById<Button>(R.id.btnETH) //BUTTOM ETH
+
+
         getBTCvalue()
         getETHvalue()
+
+        btnBTC.setOnClickListener {
+            calculateBTC()
+        }
+        btnETH.setOnClickListener {
+            calculateETH()
+        }
   }
     private fun getBTCvalue(){
         Thread{
@@ -73,14 +89,14 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     //resultBTC.text = "R$ ${resBTC.toString().format(2)} "
-                    resultBTC.text = "R$ ${String.format("%.2f",resBTC)}"
+                    resultBTC.text = " ${String.format("%.2f",resBTC)}"
                 }
             }finally {
                 conBTC.disconnect()
             }
         }.start()
-
     }
+
     private fun getETHvalue(){
 
         Thread{
@@ -102,7 +118,7 @@ class MainActivity : AppCompatActivity() {
                 runOnUiThread { //ETH
 
                     val resETH = objETH.getJSONObject("ticker").getDouble("last")
-                    resultETH.text = "R$ ${String.format("%.2f",resETH)}"
+                    resultETH.text = "${String.format("%.2f",resETH)}"
 
                     if (total>0){
                         sinalETH.visibility = View.VISIBLE
@@ -118,11 +134,40 @@ class MainActivity : AppCompatActivity() {
                 conETH.disconnect()
             }
         }.start()
+    }
 
+    private fun calculateBTC(){
+        val value = inputBTC.text.toString()
+        if (value.isEmpty() || value.equals(".")){
+            converterBTC.text = "Valor inválido!"
+            converterBTC.visibility = View.VISIBLE
+            return
+        }
+        Thread{
+            val num = value.toDouble()
+            val total = num.div(resultBTC.text.toString().replace(",",".").toDouble())
+            runOnUiThread {
+                converterBTC.text = "${String.format("%.4f",total)}"
+                converterBTC.visibility = View.VISIBLE
+            }
+        }.start()
     }
-    private fun calcular(){
-       val num = inputBTC.text.toString().toDouble()
-       val total = num.div(resultBTC.text.toString().toDouble())
-        converterBTC.text = total.toString()
-    }
+
+    private fun calculateETH() {
+        val value = inputETH.text.toString()
+        if (value.isEmpty() || value.equals(".")){
+            converterETH.text = "Valor inválido!"
+            converterETH.visibility = View.VISIBLE
+            return
+        }
+        Thread{
+            val num = value.toDouble()
+            val total = num.div(resultETH.text.toString().replace(",",".").toDouble())
+            runOnUiThread {
+                converterETH.text = "${String.format("%.4f",total)}"
+                converterETH.visibility = View.VISIBLE
+            }
+        }.start()
+        }
+
 }

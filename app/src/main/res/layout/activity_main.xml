@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="196dp"
-        android:text="Etherium"
+        android:text="Ethereum"
         android:textColor="#673AB7"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Quantos reais?"
+        android:text="Quantos de bitcoin?"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
@@ -96,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Quantos reais?"
+        android:text="Quantos de ethereum?"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/tvEtherium"
@@ -185,11 +185,12 @@
         app:layout_constraintTop_toTopOf="@+id/tvEtherium" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/converterETH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="999"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/textView13"
         app:layout_constraintStart_toEndOf="@+id/textView13"
         app:layout_constraintTop_toTopOf="@+id/textView13" />
@@ -200,6 +201,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="999"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/textView6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

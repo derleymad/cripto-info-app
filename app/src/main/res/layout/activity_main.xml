@@ -11,148 +11,224 @@
         android:id="@+id/tvBTCBRL3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1 ETH está valendo:"
-        tools:layout_editor_absoluteX="79dp"
-        tools:layout_editor_absoluteY="305dp" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/_1_eth_est_valendo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEtherium" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bitcoin"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/bitcoin"
         android:textColor="#673AB7"
         android:textSize="24sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="167dp"
-        tools:layout_editor_absoluteY="28dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvEtherium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ethereum"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/ethereum"
         android:textColor="#673AB7"
         android:textSize="24sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="163dp"
-        tools:layout_editor_absoluteY="257dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputBTC" />
 
     <EditText
         android:id="@+id/inputBTC"
         android:layout_width="159dp"
         android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Ex: R$ 992.30"
+        android:hint="@string/ex_r_992_30"
         android:inputType="numberDecimal"
         android:textAlignment="center"
+        android:textColorHint="#757575"
         android:textSize="14sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="175dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <EditText
         android:id="@+id/inputETH"
         android:layout_width="159dp"
         android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Ex: R$ 992.30"
         android:inputType="numberDecimal"
         android:textAlignment="center"
+        android:textColorHint="#757575"
         android:textSize="14sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="378dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Quantos de bitcoin?"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/quantos_de_bitcoin"
         android:textSize="16sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="120dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBTCBRL" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="Quantos de ethereum?"
         android:textSize="16sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="60dp"
-        tools:layout_editor_absoluteY="341dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBTCBRL3" />
 
     <TextView
         android:id="@+id/tvBTCBRL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1 BTC está valendo:"
-        tools:layout_editor_absoluteX="67dp"
-        tools:layout_editor_absoluteY="85dp" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/_1_btc_est_valendo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
         android:id="@+id/btnBTC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Converter"
-        tools:layout_editor_absoluteX="191dp"
-        tools:layout_editor_absoluteY="175dp" />
+        android:layout_marginStart="16dp"
+        android:text="@string/converter"
+        app:layout_constraintBottom_toBottomOf="@+id/inputBTC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/inputBTC"
+        app:layout_constraintTop_toTopOf="@+id/inputBTC"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <Button
         android:id="@+id/btnETH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="Converter"
-        tools:layout_editor_absoluteX="191dp"
-        tools:layout_editor_absoluteY="378dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/inputETH"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/inputETH"
+        app:layout_constraintTop_toTopOf="@+id/inputETH"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/priceBTC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="999"
+        android:layout_marginStart="16dp"
+        android:text="@string/_999"
         android:textSize="14sp"
-        tools:layout_editor_absoluteX="207dp"
-        tools:layout_editor_absoluteY="85dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/tvBTCBRL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tvBTCBRL"
+        app:layout_constraintTop_toTopOf="@+id/tvBTCBRL" />
 
     <TextView
         android:id="@+id/priceETH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="999"
         android:textSize="14sp"
-        tools:layout_editor_absoluteX="216dp"
-        tools:layout_editor_absoluteY="305dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/tvBTCBRL3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tvBTCBRL3"
+        app:layout_constraintTop_toTopOf="@+id/tvBTCBRL3" />
 
     <TextView
         android:id="@+id/sinalETH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="TextView"
+        android:textSize="14sp"
         android:visibility="invisible"
-        tools:layout_editor_absoluteX="285dp"
-        tools:layout_editor_absoluteY="263dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/tvEtherium"
+        app:layout_constraintStart_toEndOf="@+id/tvEtherium"
+        app:layout_constraintTop_toTopOf="@+id/tvEtherium" />
 
     <TextView
         android:id="@+id/converterETH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="999"
-        android:visibility="gone" />
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/textView13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintTop_toTopOf="@+id/textView13" />
 
     <TextView
         android:id="@+id/converterBTC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="999"
-        android:visibility="gone" />
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/sinalBTC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:layout_marginStart="16dp"
+        android:text="@string/textview"
+        android:textSize="14sp"
         android:visibility="invisible"
-        tools:layout_editor_absoluteX="259dp"
-        tools:layout_editor_absoluteY="35dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="@+id/textView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

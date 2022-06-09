@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">cripto-info-app</string>
+    <string name="_1_eth_est_valendo">1 ETH está valendo:</string>
+    <string name="bitcoin">Bitcoin</string>
+    <string name="textview">TextView</string>
+    <string name="_1_btc_est_valendo">1 BTC está valendo:</string>
+    <string name="_999">999</string>
+    <string name="quantos_de_bitcoin">Quantos de bitcoin?</string>
+    <string name="ex_r_992_30">Ex: R$ 992.30</string>
+    <string name="converter">Converter</string>
+    <string name="ethereum">Ethereum</string>
 </resources>

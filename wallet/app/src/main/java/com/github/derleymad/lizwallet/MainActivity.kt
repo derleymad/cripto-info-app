@@ -12,13 +12,13 @@ import androidx.navigation.ui.setupWithNavController
 import com.github.derleymad.lizwallet.databinding.ActivityMainBinding
 import com.github.derleymad.lizwallet.ui.home.HomeViewModel
 import com.github.derleymad.lizwallet.ui.home.HomeViewModelFactory
+import io.horizontalsystems.bitcoincore.BitcoinCore
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         val homeViewModel = ViewModelProvider(this, HomeViewModelFactory(
             this,
@@ -40,8 +40,17 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         homeViewModel.getCurrencies()
-        homeViewModel.listOfCurrencies.observe(this){
-//            Log.i("testing",it.toString())
+        homeViewModel.getNews()
+        homeViewModel.getMarket()
+        homeViewModel.initBitoinKit()
+
+
+
+        homeViewModel.newsRaw.observe(this){
+            Log.i("testing","new s${it.toString()}")
+        }
+        homeViewModel.market.observe(this){
+            Log.i("testing","market s${it.toString()}")
         }
 
     }

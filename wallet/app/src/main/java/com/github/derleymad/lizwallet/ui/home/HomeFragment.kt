@@ -39,16 +39,11 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        val homeViewModel = ViewModelProvider(this, HomeViewModelFactory(
-//            requireContext(),
-//
-//        )).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         setupTabLayout()
-
 
         return root
     }

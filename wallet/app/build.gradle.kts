@@ -2,10 +2,13 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("maven-publish")
 
 }
 
+
 android {
+
     namespace = "com.github.derleymad.lizwallet"
     compileSdk = 34
 
@@ -72,6 +75,19 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:2.44")
 
     //room
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+
+    implementation("com.github.horizontalsystems:bitcoin-kit-android:59b8e4e")
+
+
+    //javaforbtcassync
+    implementation("io.reactivex.rxjava2:rxjava:2.2.19")
+
+    //lottie
+    implementation("com.airbnb.android:lottie:3.7.0")
+
+
+
 
 
 }

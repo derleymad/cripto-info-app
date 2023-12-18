@@ -1,6 +1,8 @@
 package com.github.derleymad.lizwallet.adapters
 
 import android.annotation.SuppressLint
+import android.content.res.Resources
+import android.provider.CalendarContract.Colors
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +19,7 @@ class CurrencyAdapter(private val currencyList: List<ListOfCurrencies> = emptyLi
     private val localList = arrayListOf<ListOfCurrencies>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun insertListOfCurrenciesUpdated (localListOfCurrencies: ArrayList<ListOfCurrencies>){
+    fun insertListOfCurrenciesUpdated (localListOfCurrencies: List<ListOfCurrencies>){
         localList.clear()
         localList.addAll(localListOfCurrencies)
         this.notifyDataSetChanged()
@@ -39,6 +41,8 @@ class CurrencyAdapter(private val currencyList: List<ListOfCurrencies> = emptyLi
     }
     class CurrencyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(currency: ListOfCurrencies){
+
+            val currencySymbolTextView: TextView = itemView.findViewById(R.id.currency_symbol)
             val currencyNameTextView: TextView = itemView.findViewById(R.id.currency_name)
             val currencyPriceTextView: TextView = itemView.findViewById(R.id.currency_price)
             val currencyRateTextView: TextView = itemView.findViewById(R.id.currency_rate)
@@ -46,9 +50,20 @@ class CurrencyAdapter(private val currencyList: List<ListOfCurrencies> = emptyLi
 
             Picasso.get().load(currency.image).into(currencyIconImageView)
 
+            val variation = currency.price_change_percentage_24h
+            val numeroFormatado = "%.2f".format(variation)
+
+            when{
+                variation<0->{currencyRateTextView.setTextColor(itemView.resources.getColor(R.color.red))}
+                variation>0->{currencyRateTextView.setTextColor(itemView.resources.getColor(R.color.green))}
+                variation== 0.toDouble() ->{currencyRateTextView.setTextColor(itemView.resources.getColor(R.color.white))}
+            }
+
+            currencyRateTextView.text = numeroFormatado+"%"
+
+            currencySymbolTextView.text = currency.symbol.toUpperCase()
             currencyNameTextView.text = currency.name
-            currencyPriceTextView.text = currency.current_price.toString()
-            currencyRateTextView.text = currency.price_change_percentage_24h.toString()+"%"
+            currencyPriceTextView.text = "$ "+currency.current_price.toString()
 
         }
     }

@@ -1,5 +1,9 @@
 package com.github.derleymad.lizwallet.network
 
+import androidx.core.graphics.createBitmap
+import com.github.derleymad.lizwallet.network.market.MarketApi
+import com.github.derleymad.lizwallet.network.news.NewsApi
+import com.google.gson.Gson
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -10,5 +14,21 @@ object RetrofitInstance {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CurrenciesApi::class.java)
+    }
+
+    val apiNews : NewsApi by lazy {
+        Retrofit.Builder()
+            .baseUrl("https://min-api.cryptocompare.com/data/v2/news/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(NewsApi::class.java)
+    }
+
+    val apiMarket : MarketApi by lazy {
+        Retrofit.Builder()
+            .baseUrl("https://api.blocksdecoded.com/v1/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(MarketApi::class.java)
     }
 }

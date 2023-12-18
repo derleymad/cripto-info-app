@@ -4,6 +4,8 @@ import android.content.res.Resources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.github.derleymad.lizwallet.ui.home.favorites.FavoritesFragment
+import com.github.derleymad.lizwallet.ui.home.mercados.news.NewsFragment
 import com.github.derleymad.lizwallet.ui.home.mercados.overview.OverviewFragment
 
 class PagerAdapter(fragmentActivity: FragmentActivity) :
@@ -15,10 +17,10 @@ class PagerAdapter(fragmentActivity: FragmentActivity) :
                 OverviewFragment()
             }
             1 -> {
-                OverviewFragment()
+                NewsFragment()
             }
             2 -> {
-                OverviewFragment()
+                FavoritesFragment()
             }
             else -> {
                 throw Resources.NotFoundException("Posição nao foi achada!")

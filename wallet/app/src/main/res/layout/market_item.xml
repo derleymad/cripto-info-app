@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_news_container"
+        app:cardCornerRadius="16dp"
+        android:backgroundTint="@color/background_secondary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ln_news_container"
+            android:orientation="vertical"
+            android:padding="16dp"
+
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/market_name"
+                tools:text="@tools:sample/lorem/random"
+                android:layout_marginTop="8dp"
+                android:textSize="14sp"
+                android:layout_width="match_parent"
+                android:maxLines="1"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/market_price"
+                tools:text="@tools:sample/lorem/random"
+                android:textSize="18sp"
+                android:textStyle="bold"
+
+                android:layout_width="match_parent"
+                android:textColor="@color/white"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,5 +4,5 @@ data class MarketToRecyclerData(
     val name: String,
     val value : Double,
     val percentage : Double,
-    val marketData: ArrayList<MarketData>
+    val marketData: ArrayList<Double>
 )

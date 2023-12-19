@@ -112,10 +112,54 @@ class HomeViewModel( val app: Context) : ViewModel() {
     fun formatMarket(list: ArrayList<MarketData>) : ArrayList<MarketToRecyclerData>{
         val recyclerMarketList = arrayListOf<MarketToRecyclerData>()
 
-        recyclerMarketList.add(MarketToRecyclerData(name = "Valor de mercado", value = list[0].market_cap, percentage = list[0].volume,marketData = list))
-        recyclerMarketList.add(MarketToRecyclerData(name = "Volume em 24h", value = list[0].volume, percentage = list[0].volume,marketData = list))
-        recyclerMarketList.add(MarketToRecyclerData(name = "Mercado de DeFi", value = list[0].defi_market_cap, percentage = list[0].volume ,marketData = list))
-        recyclerMarketList.add(MarketToRecyclerData(name = "TVL no DeFi", value = list[0].tvl, percentage = list[0].volume ,marketData = list))
+        val listValorDeMercado = arrayListOf<Double>()
+        val listVolume = arrayListOf<Double>()
+        val listMercadoDefi= arrayListOf<Double>()
+        val listTVL = arrayListOf<Double>()
+
+        for(i in list){
+            listValorDeMercado.add(i.market_cap)
+            listVolume.add(i.volume)
+            listMercadoDefi.add(i.defi_market_cap)
+            listTVL.add(i.tvl)
+        }
+
+        recyclerMarketList.add(
+            MarketToRecyclerData(
+                name = "Valor de mercado",
+                value = list[0].market_cap,
+                percentage = ((list[list.size - 1].market_cap - list[0].market_cap) / list[0].market_cap) * 100,
+                marketData = listValorDeMercado
+            )
+        )
+
+        recyclerMarketList.add(
+            MarketToRecyclerData(
+                name = "Volume em 24h",
+                value = list[0].volume,
+                percentage = ((list[0].volume - list[list.size - 1].volume) / list[list.size - 1].volume) * 100,
+                marketData = listVolume
+            )
+        )
+
+        recyclerMarketList.add(
+            MarketToRecyclerData(
+                name = "Mercado de DeFi",
+                value = list[0].defi_market_cap,
+                percentage = ((list[list.size - 1].defi_market_cap - list[0].defi_market_cap) / list[0].defi_market_cap) * 100,
+                marketData = listMercadoDefi
+            )
+        )
+
+        recyclerMarketList.add(
+            MarketToRecyclerData(
+                name = "TVL no DeFi",
+                value = list[0].tvl,
+                percentage = ((list[0].tvl - list[list.size - 1].tvl) / list[list.size - 1].tvl) * 100,
+                marketData = listTVL
+            )
+        )
+
 
         return recyclerMarketList
 
@@ -240,12 +284,9 @@ class HomeViewModel( val app: Context) : ViewModel() {
                 }
             }
 
-
-
             balance.postValue(bitcoinKit.balance.spendable)
             bitcoinKit.start()
         }
-
 
     }
 

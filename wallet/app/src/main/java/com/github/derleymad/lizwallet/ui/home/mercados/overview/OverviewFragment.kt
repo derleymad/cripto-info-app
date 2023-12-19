@@ -16,6 +16,7 @@ import com.github.derleymad.lizwallet.adapters.MarketAdapter
 import com.github.derleymad.lizwallet.databinding.FragmentOverviewBinding
 import com.github.derleymad.lizwallet.model.market.MarketData
 import com.github.derleymad.lizwallet.ui.home.HomeViewModel
+import com.github.derleymad.lizwallet.utils.converSaldoToBeaty
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -58,6 +59,28 @@ class OverviewFragment : Fragment() {
         }
         homeViewModel.market.observe(viewLifecycleOwner){
             marketAdapter.insertListOfCurrenciesUpdated(it)
+        }
+        binding.checkSaldo.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                binding.saldoFiatSpot.visibility = View.GONE
+            } else {
+                binding.saldoFiatSpot.visibility = View.VISIBLE
+            }
+        }
+        homeViewModel.fiatBrl.observe(viewLifecycleOwner){bitcoinToFiat ->
+            homeViewModel.balance.observe(viewLifecycleOwner){
+                if (it != null) {
+                    binding.saldoContainer.visibility = View.VISIBLE
+                    val satsToBtc = it.toFloat().div(100000000)
+                    val btcToBrL =  (satsToBtc*bitcoinToFiat.bitcoin.brl)
+                    val stringBeauty = converSaldoToBeaty(btcToBrL.toLong())
+                    binding.saldoFiatSpot.text = "R$ "+ stringBeauty
+                }
+                else{
+                    binding.saldoContainer.visibility = View.GONE
+                }
+            }
+//            binding.saldoFiatSpot.text = it.bitcoin.brl.toString()
         }
 
     }

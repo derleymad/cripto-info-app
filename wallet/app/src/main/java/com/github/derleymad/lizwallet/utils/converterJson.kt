@@ -1,5 +1,6 @@
 package com.github.derleymad.lizwallet.utils
 
+import BitcoinToFiat
 import com.github.derleymad.lizwallet.model.ListOfCurrencies
 import com.github.derleymad.lizwallet.model.market.MarketData
 import com.github.derleymad.lizwallet.model.market.MarketToRecyclerData
@@ -23,4 +24,9 @@ fun convertObjectToJsonMarket(market : ArrayList<MarketToRecyclerData>):String{
     val gson = Gson()
     val type : Type = object : TypeToken<ArrayList<MarketToRecyclerData>>() {}.type
     return gson.toJson(market,type)
+}
+fun convertObjectToJsonBitcoinToFiatBrl(fiatBrl: BitcoinToFiat):String{
+    val gson = Gson()
+    val type : Type = object : TypeToken<BitcoinToFiat>() {}.type
+    return gson.toJson(fiatBrl,type)
 }

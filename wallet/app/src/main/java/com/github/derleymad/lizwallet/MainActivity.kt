@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         )
         )[HomeViewModel::class.java]
 
-
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
@@ -43,14 +42,17 @@ class MainActivity : AppCompatActivity() {
         homeViewModel.getNews()
         homeViewModel.getMarket()
         homeViewModel.initBitoinKit()
-
-
+        homeViewModel.getBitcoinToFiatConverter()
 
         homeViewModel.newsRaw.observe(this){
             Log.i("testing","new s${it.toString()}")
         }
+
         homeViewModel.market.observe(this){
             Log.i("testing","market s${it.toString()}")
+        }
+        homeViewModel.fiatBrl.observe(this){
+            Log.i("testing",it.toString())
         }
 
     }

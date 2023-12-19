@@ -9,17 +9,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.mercados.overview.OverviewFragment">
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:visibility="invisible"
-        android:id="@+id/rv_market"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/saldo_container"
         android:layout_width="match_parent"
-        tools:visibility="visible"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_static_saldo_fiat_spot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Saldo total"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/checkSaldo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/selector_switch_thumb"
+            android:button="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/saldo_fiat_spot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/tv_static_saldo_fiat_spot"
+            app:layout_constraintTop_toTopOf="@+id/tv_static_saldo_fiat_spot" />
+
+        <TextView
+            android:visibility="visible"
+            android:id="@+id/saldo_fiat_spot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="R$ 0.0"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/tv_static_saldo_fiat_spot"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tv_static_saldo_fiat_spot"
+            app:layout_constraintTop_toBottomOf="@+id/tv_static_saldo_fiat_spot" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_market"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saldo_container"
+        tools:visibility="visible" />
 
 
     <androidx.cardview.widget.CardView

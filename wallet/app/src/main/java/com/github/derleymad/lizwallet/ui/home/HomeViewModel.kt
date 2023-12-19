@@ -1,5 +1,6 @@
 package com.github.derleymad.lizwallet.ui.home
 
+import BitcoinToFiat
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -13,6 +14,7 @@ import com.github.derleymad.lizwallet.model.market.MarketToRecyclerData
 import com.github.derleymad.lizwallet.model.news.RawNews
 import com.github.derleymad.lizwallet.network.RetrofitInstance
 import com.github.derleymad.lizwallet.utils.convertObjectToJson
+import com.github.derleymad.lizwallet.utils.convertObjectToJsonBitcoinToFiatBrl
 import com.github.derleymad.lizwallet.utils.convertObjectToJsonMarket
 import com.github.derleymad.lizwallet.utils.convertObjectToJsonNews
 import com.google.gson.Gson
@@ -42,11 +44,13 @@ class HomeViewModel( val app: Context) : ViewModel() {
     val syncing = MutableLiveData("")
     val stateBitcore = MutableLiveData<BitcoinCore.KitState>()
     val isLoading = MutableLiveData(false)
+    val fiatBrl = MutableLiveData<BitcoinToFiat>()
     val watchOnlyAdress = MutableLiveData("")
 
     private val LAST_API_CALL_TIMESTAMP_KEY = "last_api_call_timestamp"
     private val LAST_API_NEWS_CALL_TIMESTAMP_KEY = "last_api_call_timestamp"
     private val LAST_API_MARKET_CALL_TIMESTAMP_KEY = "last_api_call_timestamp"
+    private val LAST_API_BITCOINTOFIAT_CALL_TIMESTAMP_KEY = "last_api_call_timestamp"
 
     private fun saveJsonToFile(context: Context, jsonString: String, filename: String) {
         context.openFileOutput(filename, Context.MODE_PRIVATE).use {
@@ -70,6 +74,12 @@ class HomeViewModel( val app: Context) : ViewModel() {
         val jsonString = context.openFileInput(filename).bufferedReader().use { it.readText() }
         val gson = Gson()
         val type: Type = object : TypeToken<ArrayList<MarketToRecyclerData>>() {}.type
+        return gson.fromJson(jsonString, type)
+    }
+    fun readJsonFromFiatConverter(context: Context, filename: String) : BitcoinToFiat{
+        val jsonString = context.openFileInput(filename).bufferedReader().use { it.readText() }
+        val gson = Gson()
+        val type: Type = object : TypeToken<BitcoinToFiat>() {}.type
         return gson.fromJson(jsonString, type)
     }
 
@@ -115,7 +125,7 @@ class HomeViewModel( val app: Context) : ViewModel() {
         val sharedPreferences = app.getSharedPreferences("seu_pref_name",Context.MODE_PRIVATE)
         viewModelScope.launch {
             val lastTimestamp = sharedPreferences.getLong(LAST_API_MARKET_CALL_TIMESTAMP_KEY, 0)
-            if ((System.currentTimeMillis() - lastTimestamp) > TimeUnit.SECONDS.toMillis(1)) {
+            if ((System.currentTimeMillis() - lastTimestamp) > TimeUnit.SECONDS.toMillis(100)) {
                 RetrofitInstance.apiMarket.getMarket().enqueue(object : Callback<ArrayList<MarketData>> {
                     override fun onResponse(call: Call<ArrayList<MarketData>>, response: Response<ArrayList<MarketData>>) {
                         if (response.body() != null) {
@@ -135,12 +145,36 @@ class HomeViewModel( val app: Context) : ViewModel() {
             }
         }
     }
+    fun getBitcoinToFiatConverter(){
+        val sharedPreferences = app.getSharedPreferences("seu_pref_name",Context.MODE_PRIVATE)
+        viewModelScope.launch {
+            val lastTimestamp = sharedPreferences.getLong(LAST_API_BITCOINTOFIAT_CALL_TIMESTAMP_KEY, 0)
+            if ((System.currentTimeMillis() - lastTimestamp) > TimeUnit.SECONDS.toMillis(100)) {
+                RetrofitInstance.apiConverter.getMarket().enqueue(object : Callback<BitcoinToFiat> {
+                    override fun onResponse(call: Call<BitcoinToFiat>, response: Response<BitcoinToFiat>) {
+                        if (response.body() != null) {
+//                            _market.postValue(formatMarket(response.body()!!))
+                            fiatBrl.postValue(response.body()!!)
+                            sharedPreferences.edit().putLong(LAST_API_BITCOINTOFIAT_CALL_TIMESTAMP_KEY, System.currentTimeMillis()).apply()
+                            saveJsonToFile(app, convertObjectToJsonBitcoinToFiatBrl(response.body()!!),"db_fiat_brl")
+                        } else {
+                            Log.i("error", "errornull")
+                        }
+                    }
+                    override fun onFailure(call: Call<BitcoinToFiat>, t: Throwable) {
+                    }
+                })
+            } else {
+                fiatBrl.postValue(readJsonFromFiatConverter(app,"db_fiat_brl"))
+            }
+        }
+    }
 
     fun getNews(){
         val sharedPreferences = app.getSharedPreferences("seu_pref_name",Context.MODE_PRIVATE)
         viewModelScope.launch {
             val lastTimestamp = sharedPreferences.getLong(LAST_API_NEWS_CALL_TIMESTAMP_KEY, 0)
-            if ((System.currentTimeMillis() - lastTimestamp) > TimeUnit.SECONDS.toMillis(1)) {
+            if ((System.currentTimeMillis() - lastTimestamp) > TimeUnit.SECONDS.toMillis(100)) {
                 RetrofitInstance.apiNews.getRawNews().enqueue(object : Callback<RawNews> {
                     override fun onResponse(call: Call<RawNews>, response: Response<RawNews>) {
                         if (response.body() != null) {

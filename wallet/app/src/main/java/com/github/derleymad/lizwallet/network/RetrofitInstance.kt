@@ -1,6 +1,7 @@
 package com.github.derleymad.lizwallet.network
 
 import androidx.core.graphics.createBitmap
+import com.github.derleymad.lizwallet.network.converter.FiatApi
 import com.github.derleymad.lizwallet.network.market.MarketApi
 import com.github.derleymad.lizwallet.network.news.NewsApi
 import com.google.gson.Gson
@@ -30,5 +31,12 @@ object RetrofitInstance {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(MarketApi::class.java)
+    }
+    val apiConverter : FiatApi by lazy {
+        Retrofit.Builder()
+            .baseUrl("https://api.coingecko.com/api/v3/simple/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(FiatApi::class.java)
     }
 }

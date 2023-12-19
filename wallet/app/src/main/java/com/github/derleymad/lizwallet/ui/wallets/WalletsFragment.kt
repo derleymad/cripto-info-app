@@ -85,19 +85,7 @@ class WalletsFragment : Fragment() {
             }
         }
 
-//        homeViewModel.synced.observe(viewLifecycleOwner){
-//            binding.rvTransactions.visibility = View.VISIBLE
-//            binding.lottieAnimationView.visibility = View.INVISIBLE
-//            when{
-//                it-> {
-//                    homeViewModel.transactionInfo.observe(viewLifecycleOwner){
-//                        if(it.isNotEmpty()){
-//
-//                        }
-//                    }
-//                }
-//            }
-//        }
+
     }
 
     private fun changeCurrencySaldo() {

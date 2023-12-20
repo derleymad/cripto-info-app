@@ -10,9 +10,10 @@
     <color name="btc">#ffa800</color>
     <color name="background">#13151a</color>
     <color name="background_secondary">#252933</color>
+    <color name="background_secondary_variant">#343947</color>
     <color name="red">#dc3545</color>
     <color name="green">#05c46b</color>
     <color name="gray_light">#c8c7cc</color>
-    <color name="gray_dark">#c8c7cc</color>
+    <color name="gray_dark">#555555</color>
 
 </resources>

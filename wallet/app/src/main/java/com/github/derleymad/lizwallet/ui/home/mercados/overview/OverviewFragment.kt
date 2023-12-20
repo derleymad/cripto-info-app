@@ -55,7 +55,7 @@ class OverviewFragment : Fragment() {
 
 
         homeViewModel.listOfCurrencies.observe(viewLifecycleOwner) {
-            adapter.insertListOfCurrenciesUpdated(it.take(4))
+            adapter.insertListOfCurrenciesUpdated(it.take(5))
         }
         homeViewModel.market.observe(viewLifecycleOwner){
             marketAdapter.insertListOfCurrenciesUpdated(it)
@@ -89,7 +89,8 @@ class OverviewFragment : Fragment() {
         //market
         marketAdapter = MarketAdapter{}
         binding.rvMarket.adapter =marketAdapter
-        binding.rvMarket.layoutManager = GridLayoutManager(requireContext(),2)
+        val gridLayout = object : GridLayoutManager(requireContext(),2) { override fun canScrollVertically() = false }
+        binding.rvMarket.layoutManager = gridLayout
 
         //currencies
         adapter = CurrencyAdapter()

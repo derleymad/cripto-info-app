@@ -34,6 +34,7 @@ class WalletsFragment : Fragment() {
         _binding = FragmentWalletsBinding.inflate(inflater, container, false)
 
         startRecyclerView()
+        Log.i("view","creating")
         val root: View = binding.root
         return root
     }
@@ -64,8 +65,6 @@ class WalletsFragment : Fragment() {
             if(progress!=0.0){
                 binding.syncProgress.text = (progress!!*100).toInt().toString()+"% ...sincronizando com a blockchain"
             }
-        }
-        homeViewModel.isLoading.observe(viewLifecycleOwner){
         }
 
         binding.include.saldoWallet.setOnClickListener {

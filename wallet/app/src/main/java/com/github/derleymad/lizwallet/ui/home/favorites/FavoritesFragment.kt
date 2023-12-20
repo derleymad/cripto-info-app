@@ -38,10 +38,8 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        binding.lineChart.data
 
-        val lineChart: LineChart = binding.lineChart
 
-        homeViewModel.market.observe(viewLifecycleOwner){
-        }
+
     }
 
 }

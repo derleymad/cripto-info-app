@@ -36,15 +36,6 @@ class OverviewFragment : Fragment() {
         _binding = FragmentOverviewBinding.inflate(inflater, container, false)
 
         startRecyclerViews()
-        binding.included.shimmerViewContainer.startShimmer()
-
-        val root: View = binding.root
-        return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         Handler(Looper.getMainLooper()).postDelayed({
             binding.included.shimmerViewContainer.stopShimmer()
             binding.rvMarket.visibility = View.VISIBLE
@@ -52,7 +43,28 @@ class OverviewFragment : Fragment() {
             binding.included.root.visibility = View.INVISIBLE
         }, 2000)
 
+        binding.included.shimmerViewContainer.startShimmer()
+        Log.i("lifecycle","viewcreate")
 
+        val root: View = binding.root
+        return root
+    }
+
+    private fun refreshOverview() {
+        homeViewModel.getBitcoinToFiatConverter()
+        homeViewModel.getMarket()
+        homeViewModel.getCurrencies()
+        binding.swipeRefreshLayout.isRefreshing = false
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        Log.i("created","createeted")
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            refreshOverview()
+        }
 
         homeViewModel.listOfCurrencies.observe(viewLifecycleOwner) {
             adapter.insertListOfCurrenciesUpdated(it.take(5))
@@ -98,5 +110,11 @@ class OverviewFragment : Fragment() {
         val linearLayout = object : LinearLayoutManager(requireContext()) { override fun canScrollVertically() = false }
         binding.rvCurrencies.layoutManager = linearLayout
 
+    }
+
+    override fun onDestroy() {
+        Log.i("ondestroy","destroy")
+        _binding = null
+        super.onDestroy()
     }
 }

@@ -2,6 +2,7 @@ package com.github.derleymad.lizwallet.ui.home
 
 import android.content.res.Resources
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,11 +46,13 @@ class HomeFragment : Fragment() {
 
         setupTabLayout()
 
+        Log.i("views","creatinghome")
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.i("views","destroyhome")
         _binding = null
     }
 }

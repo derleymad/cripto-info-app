@@ -19,7 +19,7 @@ object RetrofitInstance {
 
     val apiNews : NewsApi by lazy {
         Retrofit.Builder()
-            .baseUrl("https://min-api.cryptocompare.com/data/v2/news/")
+            .baseUrl("https://min-api.cryptocompare.com/data/v2/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(NewsApi::class.java)

@@ -6,5 +6,5 @@ import retrofit2.http.GET
 
 interface FiatApi{
     @GET("price?ids=bitcoin&vs_currencies=brl")
-    fun getMarket(): Call<BitcoinToFiat>
+    suspend fun getBrlPrice(): BitcoinToFiat
 }

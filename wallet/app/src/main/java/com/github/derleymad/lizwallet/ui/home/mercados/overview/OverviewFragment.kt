@@ -17,6 +17,7 @@ import com.github.derleymad.lizwallet.databinding.FragmentOverviewBinding
 import com.github.derleymad.lizwallet.model.market.MarketData
 import com.github.derleymad.lizwallet.ui.home.HomeViewModel
 import com.github.derleymad.lizwallet.utils.converSaldoToBeaty
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -51,9 +52,10 @@ class OverviewFragment : Fragment() {
     }
 
     private fun refreshOverview() {
-        homeViewModel.getBitcoinToFiatConverter()
-        homeViewModel.getMarket()
         homeViewModel.getCurrencies()
+        homeViewModel.getNews()
+        homeViewModel.getBrlPrice()
+        homeViewModel.getMarket()
         binding.swipeRefreshLayout.isRefreshing = false
     }
 
@@ -67,10 +69,16 @@ class OverviewFragment : Fragment() {
         }
 
         homeViewModel.listOfCurrencies.observe(viewLifecycleOwner) {
-            adapter.insertListOfCurrenciesUpdated(it.take(5))
+            if (it != null) {
+                adapter.insertListOfCurrenciesUpdated(it.take(5))
+            }else{
+                Snackbar.make(binding.root,"Sem conexão com a internet",Snackbar.LENGTH_LONG).show()
+            }
         }
         homeViewModel.market.observe(viewLifecycleOwner){
-            marketAdapter.insertListOfCurrenciesUpdated(it)
+            if(it!=null){
+                marketAdapter.insertListOfCurrenciesUpdated(it)
+            }
         }
         binding.checkSaldo.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -79,22 +87,23 @@ class OverviewFragment : Fragment() {
                 binding.saldoFiatSpot.visibility = View.VISIBLE
             }
         }
+
         homeViewModel.fiatBrl.observe(viewLifecycleOwner){bitcoinToFiat ->
-            homeViewModel.balance.observe(viewLifecycleOwner){
-                if (it != null) {
-                    binding.saldoContainer.visibility = View.VISIBLE
-                    val satsToBtc = it.toFloat().div(100000000)
-                    val btcToBrL =  (satsToBtc*bitcoinToFiat.bitcoin.brl)
-                    val stringBeauty = converSaldoToBeaty(btcToBrL.toLong())
-                    binding.saldoFiatSpot.text = "R$ "+ stringBeauty
-                }
-                else{
-                    binding.saldoContainer.visibility = View.GONE
+            if(bitcoinToFiat != null){
+                homeViewModel.balance.observe(viewLifecycleOwner){
+                    if (it != null) {
+                        binding.saldoContainer.visibility = View.VISIBLE
+                        val satsToBtc = it.toFloat().div(100000000)
+                        val btcToBrL =  (satsToBtc*bitcoinToFiat.bitcoin.brl)
+                        val stringBeauty = converSaldoToBeaty(btcToBrL.toLong())
+                        binding.saldoFiatSpot.text = "R$ "+ stringBeauty
+                    }
+                    else{
+                        binding.saldoContainer.visibility = View.GONE
+                    }
                 }
             }
-//            binding.saldoFiatSpot.text = it.bitcoin.brl.toString()
         }
-
     }
 
     fun startRecyclerViews(){

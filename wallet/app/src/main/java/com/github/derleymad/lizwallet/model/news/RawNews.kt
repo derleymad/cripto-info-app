@@ -1,6 +1,5 @@
 package com.github.derleymad.lizwallet.model.news
 
-import Source_info
 import com.google.gson.annotations.SerializedName
 
 data class RawNews(

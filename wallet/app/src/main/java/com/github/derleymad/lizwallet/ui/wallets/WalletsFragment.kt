@@ -15,6 +15,7 @@ import com.github.derleymad.lizwallet.ui.home.HomeViewModel
 import com.github.derleymad.lizwallet.ui.wallets.bottomsheet.BottomSheetFragment
 import com.github.derleymad.lizwallet.utils.converDataToBeaty
 import com.github.derleymad.lizwallet.utils.converSaldoToBeaty
+import com.google.android.material.snackbar.Snackbar
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -60,11 +61,17 @@ class WalletsFragment : Fragment() {
 
         }
         homeViewModel.stateBitcore.observe(viewLifecycleOwner){
+            Log.i("testing",it.toString())
+            if(it.toString().contains("NoInternet")){
+                Snackbar.make(binding.root,"Sem conexão com a internet, os dados podem estar desatualizados...",Snackbar.LENGTH_LONG).show()
+            }
+            if(it.toString().contains("Syncing")){
             val progress = extrairParteNumerica(it.toString())
-            Log.i("testing",progress.toString())
-            if(progress!=0.0){
+                    if(progress!=0.0){
                 binding.syncProgress.text = (progress!!*100).toInt().toString()+"% ...sincronizando com a blockchain"
             }
+            }
+
         }
 
         binding.include.saldoWallet.setOnClickListener {

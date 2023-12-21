@@ -101,6 +101,7 @@ class HomeViewModel( val app: Context) : ViewModel() {
                     }
                     override fun onFailure(call: Call<ArrayList<ListOfCurrencies>>, t: Throwable) {
 //                        Log.e("TAGAPI", t.message.toString())
+                        _listOfCurrencies.postValue(readJsonFromFile(app,"db"))
                     }
                 })
             } else {
@@ -182,6 +183,7 @@ class HomeViewModel( val app: Context) : ViewModel() {
                         }
                     }
                     override fun onFailure(call: Call<ArrayList<MarketData>>, t: Throwable) {
+                        _market.postValue(readJsonFromMarket(app,"db_market"))
                     }
                 })
             } else {
@@ -206,6 +208,7 @@ class HomeViewModel( val app: Context) : ViewModel() {
                         }
                     }
                     override fun onFailure(call: Call<BitcoinToFiat>, t: Throwable) {
+                        fiatBrl.postValue(readJsonFromFiatConverter(app,"db_fiat_brl"))
                     }
                 })
             } else {
@@ -230,6 +233,7 @@ class HomeViewModel( val app: Context) : ViewModel() {
                         }
                     }
                     override fun onFailure(call: Call<RawNews>, t: Throwable) {
+                        _newsRaw.postValue(readJsonFromFileNews(app,"db_news"))
                     }
                 })
             } else {

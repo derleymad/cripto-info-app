@@ -62,10 +62,7 @@ object Dao {
                 marketData = listTVL
             )
         )
-
-
         return recyclerMarketList
-
     }
 
     fun saveJsonToFile(context: Context, jsonString: String, filename: String) {

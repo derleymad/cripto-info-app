@@ -67,8 +67,8 @@ class WalletsFragment : Fragment() {
             }
             if(it.toString().contains("Syncing")){
             val progress = extrairParteNumerica(it.toString())
-                    if(progress!=0.0){
-                binding.syncProgress.text = (progress!!*100).toInt().toString()+"% ...sincronizando com a blockchain"
+            if(progress!=0.0){
+            binding.syncProgress.text = (progress!!*100).toInt().toString()+"% ...sincronizando com a blockchain"
             }
             }
 
@@ -79,7 +79,7 @@ class WalletsFragment : Fragment() {
         }
 
         homeViewModel.balance.observe(viewLifecycleOwner){
-            binding.include.saldoWallet.text = "${converSaldoToBeaty(it!!)} sats"
+            binding.include.saldoWallet.text = "${converSaldoToBeaty(it.toString()!!)} sats"
         }
 
         homeViewModel.transactionInfo.observe(viewLifecycleOwner){

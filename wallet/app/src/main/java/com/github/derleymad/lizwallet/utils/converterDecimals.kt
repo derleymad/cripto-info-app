@@ -1,6 +1,4 @@
 package com.github.derleymad.lizwallet.utils
-
-
 fun formatarNumero(cursoes: Double): String {
     val milhao = 1_000_000.0
     val bilhao = 1_000_000_000.0

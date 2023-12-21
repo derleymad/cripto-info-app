@@ -1,5 +1,6 @@
 package com.github.derleymad.lizwallet.ui.home.mercados.overview
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -88,15 +89,30 @@ class OverviewFragment : Fragment() {
             }
         }
 
-        homeViewModel.fiatBrl.observe(viewLifecycleOwner){bitcoinToFiat ->
+        homeViewModel.fiatBrl.observe(viewLifecycleOwner){ bitcoinToFiat ->
             if(bitcoinToFiat != null){
                 homeViewModel.balance.observe(viewLifecycleOwner){
                     if (it != null) {
+
+//                        if(saldoAtual != it){
+//                        }
+
                         binding.saldoContainer.visibility = View.VISIBLE
                         val satsToBtc = it.toFloat().div(100000000)
                         val btcToBrL =  (satsToBtc*bitcoinToFiat.bitcoin.brl)
-                        val stringBeauty = converSaldoToBeaty(btcToBrL.toLong())
+
+//                        Log.i("saldo","antigo ${saldoAtual!!.toInt()}")
+//                        Log.i("saldo","novo ${btcToBrL.toInt()}")
+
+                        val animator = ValueAnimator.ofFloat(0f,btcToBrL)
+                        animator.duration = 1500
+
+                        animator.addUpdateListener { animation ->
+                            val saldoAnimado = animation.animatedValue as Float
+                            val stringBeauty = converSaldoToBeaty(saldoAnimado.toString())
                         binding.saldoFiatSpot.text = "R$ "+ stringBeauty
+                        }
+                        animator.start()
                     }
                     else{
                         binding.saldoContainer.visibility = View.GONE

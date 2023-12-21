@@ -57,7 +57,6 @@ class MarketAdapter(
 
             marketName.text = market.name
 
-
             val entries = mutableListOf<Entry>()
             for ((index, marketData) in marketDataList.withIndex()) {
                 val entry = Entry(index.toFloat(), marketData.toFloat())

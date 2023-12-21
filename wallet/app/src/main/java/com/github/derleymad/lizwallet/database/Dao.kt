@@ -40,7 +40,7 @@ object Dao {
             MarketToRecyclerData(
                 name = "Volume em 24h",
                 value = list[0].volume,
-                percentage = ((list[0].volume - list[list.size - 1].volume) / list[list.size - 1].volume) * 100,
+                percentage = ((list[list.size -1].volume - list[0].volume) / list[0].volume) * 100,
                 marketData = listVolume
             )
         )
@@ -58,7 +58,7 @@ object Dao {
             MarketToRecyclerData(
                 name = "TVL no DeFi",
                 value = list[0].tvl,
-                percentage = ((list[0].tvl - list[list.size - 1].tvl) / list[list.size - 1].tvl) * 100,
+                percentage = ((list[list.size - 1].tvl - list[0].tvl) / list[0].tvl) * 100,
                 marketData = listTVL
             )
         )

@@ -53,14 +53,14 @@ class TransactionAdapter() :
                 data.type.value == 1 ->{
                     amoutOfTransaction.apply {
                         setTextColor(itemView.resources.getColor(R.color.green))
-                        text="+"+converSaldoToBeaty(data.amount)+" sats"
+                        text="+"+converSaldoToBeaty(data.amount.toString())+" sats"
                     }
                 }
 
                 data.type.value == 2->{
                     amoutOfTransaction.apply {
                         setTextColor(itemView.resources.getColor(R.color.red))
-                        text="-"+converSaldoToBeaty(data.amount)+" sats"
+                        text="-"+converSaldoToBeaty(data.amount.toString())+" sats"
                     }
                     val drawable = itemView.resources.getDrawable(R.drawable.baseline_send_24)
                     imgOfTransaction.setImageDrawable(drawable)
@@ -69,7 +69,7 @@ class TransactionAdapter() :
                 data.type.value == 3->{
                     amoutOfTransaction.apply {
                         setTextColor(itemView.resources.getColor(R.color.green))
-                        text ="+"+converSaldoToBeaty(data.amount)+" sats"
+                        text ="+"+converSaldoToBeaty(data.amount.toString())+" sats"
                     }
                 }
 

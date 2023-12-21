@@ -4,8 +4,8 @@ import java.text.NumberFormat
 import java.util.Locale
 
 
-fun converSaldoToBeaty(number : Long) : String{
+fun converSaldoToBeaty(number : String) : String{
     val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
-    val formattedNumber = numberFormat.format(number)
+    val formattedNumber = numberFormat.format(number.toFloat())
     return formattedNumber
 }

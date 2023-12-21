@@ -11,9 +11,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.derleymad.lizwallet.R
 import com.github.derleymad.lizwallet.model.ListOfCurrencies
+import com.github.derleymad.lizwallet.utils.onclicks.SeeMoreOnClickListener
 import com.squareup.picasso.Picasso
 
-class CurrencyAdapter(private val currencyList: List<ListOfCurrencies> = emptyList()) :
+class CurrencyAdapter(
+    private var onClickListener : () -> Unit,
+    private var onSeeClickListener : () -> Unit,
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val localList = arrayListOf<ListOfCurrencies>()
@@ -42,7 +46,11 @@ class CurrencyAdapter(private val currencyList: List<ListOfCurrencies> = emptyLi
             val currency = localList[position]
             holder.bind(currency)
         } else if (holder is VerMaisViewHolder) {
-            // Implemente a lógica de binding para o card "ver mais" aqui
+            holder.itemView.setOnClickListener {
+
+                onSeeClickListener.invoke()
+
+            }
         }
     }
 

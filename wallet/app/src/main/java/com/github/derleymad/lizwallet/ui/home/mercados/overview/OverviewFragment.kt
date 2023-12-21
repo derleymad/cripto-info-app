@@ -1,6 +1,7 @@
 package com.github.derleymad.lizwallet.ui.home.mercados.overview
 
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,25 +10,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.derleymad.lizwallet.MainActivity
 import com.github.derleymad.lizwallet.adapters.CurrencyAdapter
 import com.github.derleymad.lizwallet.adapters.MarketAdapter
 import com.github.derleymad.lizwallet.databinding.FragmentOverviewBinding
-import com.github.derleymad.lizwallet.model.market.MarketData
 import com.github.derleymad.lizwallet.ui.home.HomeViewModel
 import com.github.derleymad.lizwallet.utils.converSaldoToBeaty
+import com.github.derleymad.lizwallet.utils.onclicks.SeeMoreOnClickListener
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
-class OverviewFragment : Fragment() {
+class OverviewFragment : Fragment(), SeeMoreOnClickListener {
 
     private var _binding: FragmentOverviewBinding? = null
     private val binding get() = _binding!!
 
     val homeViewModel: HomeViewModel by activityViewModels()
+
     private lateinit var adapter : CurrencyAdapter
     private lateinit var marketAdapter: MarketAdapter
 
@@ -130,7 +132,11 @@ class OverviewFragment : Fragment() {
         binding.rvMarket.layoutManager = gridLayout
 
         //currencies
-        adapter = CurrencyAdapter()
+        adapter = CurrencyAdapter({},{
+            val intent = Intent(requireContext(),CurrenciesActivity::class.java)
+            startActivity(intent)
+        })
+
         binding.rvCurrencies.adapter = adapter
         val linearLayout = object : LinearLayoutManager(requireContext()) { override fun canScrollVertically() = false }
         binding.rvCurrencies.layoutManager = linearLayout
@@ -141,5 +147,8 @@ class OverviewFragment : Fragment() {
         Log.i("ondestroy","destroy")
         _binding = null
         super.onDestroy()
+    }
+
+    override fun onClick() {
     }
 }

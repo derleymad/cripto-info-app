@@ -11,7 +11,6 @@ import com.github.derleymad.lizwallet.network.RetrofitInstance
 import com.github.derleymad.lizwallet.repo.Repo
 import com.github.derleymad.lizwallet.ui.home.HomeViewModel
 import com.github.derleymad.lizwallet.ui.home.HomeViewModelFactory
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

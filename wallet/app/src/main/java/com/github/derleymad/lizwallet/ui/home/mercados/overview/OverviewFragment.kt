@@ -90,6 +90,9 @@ class OverviewFragment : Fragment(), SeeMoreOnClickListener {
                 binding.saldoFiatSpot.visibility = View.VISIBLE
             }
         }
+        binding.saldoFiatSpot.setOnClickListener {
+
+        }
 
         homeViewModel.fiatBrl.observe(viewLifecycleOwner){ bitcoinToFiat ->
             if(bitcoinToFiat != null){

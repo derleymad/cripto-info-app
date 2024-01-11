@@ -95,6 +95,15 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
 
 
+    //
+    implementation("androidx.biometric:biometric-ktx:1.2.0-alpha05")
+
+    //
+    implementation("com.google.mlkit:translate:17.0.2")
+
+
+
+
 
 
 

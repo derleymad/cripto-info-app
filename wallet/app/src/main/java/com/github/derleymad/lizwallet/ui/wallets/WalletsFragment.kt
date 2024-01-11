@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.derleymad.lizwallet.R
 import com.github.derleymad.lizwallet.adapters.TransactionAdapter
@@ -15,6 +17,7 @@ import com.github.derleymad.lizwallet.ui.home.HomeViewModel
 import com.github.derleymad.lizwallet.ui.wallets.bottomsheet.BottomSheetFragment
 import com.github.derleymad.lizwallet.utils.converDataToBeaty
 import com.github.derleymad.lizwallet.utils.converSaldoToBeaty
+import com.github.derleymad.lizwallet.utils.extentions.navMainToWalletDetails
 import com.google.android.material.snackbar.Snackbar
 import java.text.NumberFormat
 import java.util.Locale
@@ -53,6 +56,10 @@ class WalletsFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.include.cardWallet.setOnClickListener{
+            Navigation.findNavController(view).navMainToWalletDetails()
+        }
 
         binding.addWalletButton.setOnClickListener {
 //            homeViewModel.watchOnlyAdress.postValue()

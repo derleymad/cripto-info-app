@@ -2,6 +2,7 @@ package com.github.derleymad.lizwallet.ui.home.mercados.news
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,10 @@ import com.github.derleymad.lizwallet.adapters.NewsAdapter
 import com.github.derleymad.lizwallet.databinding.FragmentNewsBinding
 import com.github.derleymad.lizwallet.ui.home.HomeViewModel
 import com.github.derleymad.lizwallet.ui.home.news.WebViewActivity
+import com.google.mlkit.common.model.DownloadConditions
+import com.google.mlkit.nl.translate.TranslateLanguage
+import com.google.mlkit.nl.translate.Translation
+import com.google.mlkit.nl.translate.TranslatorOptions
 
 class NewsFragment : Fragment() {
 
@@ -25,8 +30,13 @@ class NewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
-        homeViewModel.newsRaw.observe(viewLifecycleOwner){ it ->
-            if (it != null) {
+        homeViewModel.newsRaw.observe(viewLifecycleOwner){ newsRaw->
+
+
+
+
+
+            if (newsRaw!= null) {
                 adapter = NewsAdapter{
 //                    val intent = Intent(Intent.ACTION_VIEW)
 //                    intent.data = Uri.parse(it)
@@ -36,7 +46,7 @@ class NewsFragment : Fragment() {
                 }
                 binding.rvNews.adapter = adapter
                 binding.rvNews.layoutManager = LinearLayoutManager(requireContext())
-                adapter.insertListOfCurrenciesUpdated(it.data)
+                adapter.insertListOfCurrenciesUpdated(newsRaw.data)
             }
         }
         val root: View = binding.root

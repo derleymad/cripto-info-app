@@ -6,4 +6,6 @@
         <item name="textAllCaps">false</item> <!-- Isso evita que o texto seja todo em maiúsculas -->
     </style>
 
+    <style name="Theme.AppCompat.Entry" parent="Theme.AppCompat.NoActionBar" >
+    </style>
 </resources>

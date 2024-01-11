@@ -3,26 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/mainFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.github.derleymad.lizwallet.ui.home.mercados.overview.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first" >
-
+        android:id="@+id/walletDetailsFragment"
+        android:name="com.github.derleymad.lizwallet.ui.wallets.wallet.WalletDetailsFragment"
+        android:label="fragment_wallet_details"
+        tools:layout="@layout/fragment_wallet_details" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_walletDetailsFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.github.derleymad.lizwallet.ui.home.mercados.overview.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second" >
-
+        android:id="@+id/mainFragment"
+        android:name="com.github.derleymad.lizwallet.ui.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_mainFragment_to_walletDetailsFragment"
+            app:destination="@id/walletDetailsFragment" />
     </fragment>
 </navigation>

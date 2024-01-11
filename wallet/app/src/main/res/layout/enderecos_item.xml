@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background_secondary"
+    android:padding="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/static_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="20" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="32dp"
+        android:ellipsize="middle"
+        android:maxLines="1"
+        app:layout_constraintBottom_toBottomOf="@+id/number"
+        app:layout_constraintEnd_toStartOf="@id/container_status"
+        app:layout_constraintStart_toEndOf="@+id/number"
+        app:layout_constraintTop_toTopOf="@+id/number"
+        tools:text="bc1aqweoi12eo129e812he0129eh128eh792he081ej20e812je0812je0812je0812je" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/container_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/green"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/address">
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="4dp"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            tools:text="Receive" />
+
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:id="@+id/static_view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/background_secondary_variant"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

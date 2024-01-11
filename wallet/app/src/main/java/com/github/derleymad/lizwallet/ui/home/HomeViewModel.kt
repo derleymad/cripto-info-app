@@ -10,9 +10,15 @@ import com.github.derleymad.lizwallet.model.ListOfCurrencies
 import com.github.derleymad.lizwallet.model.market.MarketToRecyclerData
 import com.github.derleymad.lizwallet.model.news.RawNews
 import com.github.derleymad.lizwallet.repo.Repo
+import com.google.mlkit.common.model.DownloadConditions
+import com.google.mlkit.nl.translate.TranslateLanguage
+import com.google.mlkit.nl.translate.Translation
+import com.google.mlkit.nl.translate.TranslatorOptions
 import io.horizontalsystems.bitcoincore.BitcoinCore
 import io.horizontalsystems.bitcoincore.models.BalanceInfo
+import io.horizontalsystems.bitcoincore.models.BlockInfo
 import io.horizontalsystems.bitcoincore.models.TransactionInfo
+import io.horizontalsystems.bitcoincore.utils.AddressConverterChain
 import io.horizontalsystems.bitcoinkit.BitcoinKit
 import io.horizontalsystems.hdwalletkit.HDExtendedKey
 import io.horizontalsystems.hdwalletkit.HDWallet
@@ -40,7 +46,35 @@ class HomeViewModel(val app: Context, private val repo : Repo) : ViewModel() {
     }
     fun getNews() {
         viewModelScope.launch {
-            newsRaw.postValue(repo.getNews())
+            val news=repo.getNews()
+            newsRaw.postValue(news)
+
+            val options = TranslatorOptions.Builder()
+                .setSourceLanguage(TranslateLanguage.ENGLISH)
+                .setTargetLanguage(TranslateLanguage.PORTUGUESE)
+                .build()
+            val englishGermanTranslator = Translation.getClient(options)
+
+            var conditions = DownloadConditions.Builder()
+                .requireWifi()
+                .build()
+            englishGermanTranslator.downloadModelIfNeeded(conditions)
+                .addOnSuccessListener {
+                    for(i in 0..<news!!.data.size){
+                        englishGermanTranslator.translate(news.data[i].title).addOnSuccessListener { translated ->
+                            Log.i("translated_news",translated)
+                            news.data[i].title = translated
+                        }
+                        englishGermanTranslator.translate(news.data[i].body).addOnSuccessListener { translated ->
+                            Log.i("translated_news",translated)
+                            news.data[i].body = translated
+                        }
+                    }
+
+                }
+                .addOnFailureListener { exception ->
+                }
+            newsRaw.postValue(news)
         }
     }
     fun getBrlPrice() {
@@ -83,22 +117,27 @@ class HomeViewModel(val app: Context, private val repo : Repo) : ViewModel() {
                             synced.postValue(true)
                             isLoading.postValue(false)
                             val disposables = CompositeDisposable()
+                            bitcoinKit.receiveAddress()
                             bitcoinKit.transactions().subscribe { transactionInfos ->
                                 this@HomeViewModel.transactionInfo.postValue(transactionInfos)
                                 Log.i("transactioninfo", transactionInfos.toString())
                             }.let {
                                 disposables.add(it)
                             }
+                            Log.i("wallet address" ,bitcoinKit.receiveAddress())
+
                         } else {
                             Log.i("bitcoin testing sync", state.toString())
                             stateBitcore.postValue(state)
                         }
                         super.onKitStateUpdate(state)
                     }
+
                 }
 
                 balance.postValue(bitcoinKit.balance.spendable)
                 bitcoinKit.start()
+
             }
 
         }

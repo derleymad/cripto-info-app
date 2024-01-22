@@ -1,0 +1,32 @@
+package com.github.derleymad.lizwallet.model.currency
+
+data class CurrentCurrencyData(
+    val id : String,
+    val symbol : String,
+    val name : String,
+    val web_slug : String,
+    val asset_platform_id : String,
+//    val platforms : Platforms,
+//    val detail_platforms : Detail_platforms,
+    val block_time_in_minutes : Int,
+    val hashing_algorithm : String,
+    val categories : List<String>,
+    val preview_listing : Boolean,
+    val public_notice : String,
+    val additional_notices : List<String>,
+    val description : Description,
+//    val links : Links,
+//    val image : Image,
+    val country_origin : String,
+    val genesis_date : String,
+    val sentiment_votes_up_percentage : Double,
+    val sentiment_votes_down_percentage : Double,
+    val watchlist_portfolio_users : Int,
+    val market_cap_rank : Int,
+//    val market_data : Market_data,
+//    val community_data : Community_data,
+//    val developer_data : Developer_data,
+    val status_updates : List<String>,
+    val last_updated : String,
+//    val tickers : List<Tickers>
+)

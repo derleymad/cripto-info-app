@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.github.derleymad.lizwallet.R
 import com.github.derleymad.lizwallet.model.ListOfCurrencies
@@ -15,7 +16,7 @@ import com.github.derleymad.lizwallet.utils.onclicks.SeeMoreOnClickListener
 import com.squareup.picasso.Picasso
 
 class CurrencyAdapter(
-    private var onClickListener : () -> Unit,
+    private var onClickListener : (currentCurrency: ListOfCurrencies ) -> Unit,
     private var onSeeClickListener : () -> Unit,
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -64,7 +65,7 @@ class CurrencyAdapter(
         return if (position == localList.size) VIEW_TYPE_VER_MAIS else VIEW_TYPE_ITEM
     }
 
-    class CurrencyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CurrencyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(currency: ListOfCurrencies) {
             val currencySymbolTextView: TextView = itemView.findViewById(R.id.currency_symbol)
             val currencyNameTextView: TextView = itemView.findViewById(R.id.currency_name)
@@ -93,6 +94,13 @@ class CurrencyAdapter(
             currencySymbolTextView.text = currency.symbol.toUpperCase()
             currencyNameTextView.text = currency.name
             currencyPriceTextView.text = "$ " + currency.current_price.toString()
+
+
+            itemView.rootView.setOnClickListener {
+                onClickListener.invoke(currency)
+//                Toast.makeText(it.context,"${currency.id}",Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 

@@ -6,24 +6,22 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.derleymad.lizwallet.model.HistoricalData
 import com.github.derleymad.lizwallet.model.ListOfCurrencies
+import com.github.derleymad.lizwallet.model.currency.CurrentCurrencyData
 import com.github.derleymad.lizwallet.model.market.MarketToRecyclerData
 import com.github.derleymad.lizwallet.model.news.RawNews
 import com.github.derleymad.lizwallet.repo.Repo
-import com.google.mlkit.common.model.DownloadConditions
-import com.google.mlkit.nl.translate.TranslateLanguage
-import com.google.mlkit.nl.translate.Translation
-import com.google.mlkit.nl.translate.TranslatorOptions
+import com.github.derleymad.lizwallet.utils.convert24toTimestamp
 import io.horizontalsystems.bitcoincore.BitcoinCore
 import io.horizontalsystems.bitcoincore.models.BalanceInfo
-import io.horizontalsystems.bitcoincore.models.BlockInfo
 import io.horizontalsystems.bitcoincore.models.TransactionInfo
-import io.horizontalsystems.bitcoincore.utils.AddressConverterChain
 import io.horizontalsystems.bitcoinkit.BitcoinKit
 import io.horizontalsystems.hdwalletkit.HDExtendedKey
 import io.horizontalsystems.hdwalletkit.HDWallet
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class HomeViewModel(val app: Context, private val repo : Repo) : ViewModel() {
 
@@ -38,43 +36,66 @@ class HomeViewModel(val app: Context, private val repo : Repo) : ViewModel() {
     val stateBitcore = MutableLiveData<BitcoinCore.KitState>()
     val isLoading = MutableLiveData(false)
 
+    val currentCurrency= MutableLiveData<ListOfCurrencies>(null)
+    val currentCurrencyDetails = MutableLiveData<CurrentCurrencyData>(null)
+
+    val currentCurrencyHistoricalData = MutableLiveData<HistoricalData>(null)
+
     fun getCurrencies(){
         viewModelScope.launch {
             listOfCurrencies.postValue(repo.getCurrencies())
 
         }
     }
+
+    fun getCurrentData(currency : String){
+        viewModelScope.launch {
+            currentCurrencyDetails.postValue(repo.getCurrentCurrencyData(currency))
+        }
+    }
+    fun getCurrentCurrencyHistoricalData(id : String){
+        viewModelScope.launch {
+
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.MINUTE, -10)
+            val now = calendar.timeInMillis / 1000
+
+            val past = convert24toTimestamp()
+            currentCurrencyHistoricalData.postValue(repo.getCurrentCurrencyHistoricalData(id,past,now))
+        }
+    }
+
     fun getNews() {
         viewModelScope.launch {
             val news=repo.getNews()
             newsRaw.postValue(news)
 
-            val options = TranslatorOptions.Builder()
-                .setSourceLanguage(TranslateLanguage.ENGLISH)
-                .setTargetLanguage(TranslateLanguage.PORTUGUESE)
-                .build()
-            val englishGermanTranslator = Translation.getClient(options)
-
-            var conditions = DownloadConditions.Builder()
-                .requireWifi()
-                .build()
-            englishGermanTranslator.downloadModelIfNeeded(conditions)
-                .addOnSuccessListener {
-                    for(i in 0..<news!!.data.size){
-                        englishGermanTranslator.translate(news.data[i].title).addOnSuccessListener { translated ->
-                            Log.i("translated_news",translated)
-                            news.data[i].title = translated
-                        }
-                        englishGermanTranslator.translate(news.data[i].body).addOnSuccessListener { translated ->
-                            Log.i("translated_news",translated)
-                            news.data[i].body = translated
-                        }
-                    }
-
-                }
-                .addOnFailureListener { exception ->
-                }
-            newsRaw.postValue(news)
+//            val options = TranslatorOptions.Builder()
+//                .setSourceLanguage(TranslateLanguage.ENGLISH)
+//                .setTargetLanguage(TranslateLanguage.PORTUGUESE)
+//                .build()
+//            val englishGermanTranslator = Translation.getClient(options)
+//
+//            var conditions = DownloadConditions.Builder()
+//                .requireWifi()
+//                .build()
+//            englishGermanTranslator.downloadModelIfNeeded(conditions)
+//                .addOnSuccessListener {
+//                    for(i in 0..<news!!.data.size){
+//                        englishGermanTranslator.translate(news.data[i].title).addOnSuccessListener { translated ->
+//                            Log.i("translated_news",translated)
+//                            news.data[i].title = translated
+//                        }
+//                        englishGermanTranslator.translate(news.data[i].body).addOnSuccessListener { translated ->
+//                            Log.i("translated_news",translated)
+//                            news.data[i].body = translated
+//                        }
+//                    }
+//
+//                }
+//                .addOnFailureListener { exception ->
+//                }
+//            newsRaw.postValue(news)
         }
     }
     fun getBrlPrice() {

@@ -12,6 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.derleymad.lizwallet.MainActivity
@@ -20,6 +22,8 @@ import com.github.derleymad.lizwallet.adapters.MarketAdapter
 import com.github.derleymad.lizwallet.databinding.FragmentOverviewBinding
 import com.github.derleymad.lizwallet.ui.home.HomeViewModel
 import com.github.derleymad.lizwallet.utils.converSaldoToBeaty
+import com.github.derleymad.lizwallet.utils.extentions.navMainToCurrentFragment
+import com.github.derleymad.lizwallet.utils.extentions.navMainToWalletDetails
 import com.github.derleymad.lizwallet.utils.onclicks.SeeMoreOnClickListener
 import com.google.android.material.snackbar.Snackbar
 
@@ -127,7 +131,7 @@ class OverviewFragment : Fragment(), SeeMoreOnClickListener {
         }
     }
 
-    fun startRecyclerViews(){
+    private fun startRecyclerViews(){
         //market
         marketAdapter = MarketAdapter{}
         binding.rvMarket.adapter =marketAdapter
@@ -135,7 +139,11 @@ class OverviewFragment : Fragment(), SeeMoreOnClickListener {
         binding.rvMarket.layoutManager = gridLayout
 
         //currencies
-        adapter = CurrencyAdapter({},{
+        adapter = CurrencyAdapter({
+            homeViewModel.currentCurrency.postValue(it)
+            findNavController(binding.root).navMainToCurrentFragment()
+
+        },{
             val intent = Intent(requireContext(),CurrenciesActivity::class.java)
             startActivity(intent)
         })

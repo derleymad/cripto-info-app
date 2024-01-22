@@ -30,6 +30,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
@@ -56,6 +57,7 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -84,7 +86,6 @@ dependencies {
     implementation("io.reactivex.rxjava2:rxjava:2.2.19")
 
     //lottie
-    implementation("com.airbnb.android:lottie:3.7.0")
 
     //chart
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
@@ -99,7 +100,7 @@ dependencies {
     implementation("androidx.biometric:biometric-ktx:1.2.0-alpha05")
 
     //
-    implementation("com.google.mlkit:translate:17.0.2")
+//    implementation("com.google.mlkit:translate:17.0.2")
 
 
 

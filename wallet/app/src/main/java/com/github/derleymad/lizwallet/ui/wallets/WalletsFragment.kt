@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.derleymad.lizwallet.R
 import com.github.derleymad.lizwallet.adapters.TransactionAdapter
 import com.github.derleymad.lizwallet.databinding.FragmentWalletsBinding
 import com.github.derleymad.lizwallet.ui.home.HomeViewModel
@@ -19,8 +17,6 @@ import com.github.derleymad.lizwallet.utils.converDataToBeaty
 import com.github.derleymad.lizwallet.utils.converSaldoToBeaty
 import com.github.derleymad.lizwallet.utils.extentions.navMainToWalletDetails
 import com.google.android.material.snackbar.Snackbar
-import java.text.NumberFormat
-import java.util.Locale
 
 class WalletsFragment : Fragment() {
 

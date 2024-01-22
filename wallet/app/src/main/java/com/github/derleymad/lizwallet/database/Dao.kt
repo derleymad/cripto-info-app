@@ -2,7 +2,9 @@ package com.github.derleymad.lizwallet.database
 
 import BitcoinToFiat
 import android.content.Context
+import com.github.derleymad.lizwallet.model.HistoricalData
 import com.github.derleymad.lizwallet.model.ListOfCurrencies
+import com.github.derleymad.lizwallet.model.currency.CurrentCurrencyData
 import com.github.derleymad.lizwallet.model.market.MarketData
 import com.github.derleymad.lizwallet.model.market.MarketToRecyclerData
 import com.github.derleymad.lizwallet.model.news.RawNews
@@ -82,6 +84,28 @@ object Dao {
         }
     }
 
+    fun readJsonFromFileHistoricalData(context: Context, filename: String): HistoricalData? {
+        try {
+            val jsonString = context.openFileInput(filename).bufferedReader().use { it.readText() }
+            val gson = Gson()
+            val type: Type = object : TypeToken<HistoricalData>() {}.type
+            return gson.fromJson(jsonString, type)
+        }catch (e: FileNotFoundException){
+            return null
+        }
+    }
+
+    fun readJsonFromFileCurrentCurrencyData(context: Context, filename: String): CurrentCurrencyData? {
+        try {
+            val jsonString = context.openFileInput(filename).bufferedReader().use { it.readText() }
+            val gson = Gson()
+            val type: Type = object : TypeToken<CurrentCurrencyData>() {}.type
+            return gson.fromJson(jsonString, type)
+        }catch (e: FileNotFoundException){
+            return null
+        }
+    }
+
     fun readJsonFromFileNews(context: Context, filename: String) : RawNews? {
         try {
             val jsonString = context.openFileInput(filename).bufferedReader().use { it.readText() }
@@ -137,6 +161,18 @@ object Dao {
         val gson = Gson()
         val type : Type = object : TypeToken<BitcoinToFiat>() {}.type
         return gson.toJson(fiatBrl,type)
+    }
+
+    fun convertObjectToJsonHistoricalData(historicalData: HistoricalData) : String{
+        val gson = Gson()
+        val type : Type = object : TypeToken<HistoricalData>() {}.type
+        return gson.toJson(historicalData,type)
+    }
+
+    fun convertObjectToJsonCurrentCurrencyData(currentCurrencyData: CurrentCurrencyData) : String{
+        val gson = Gson()
+        val type : Type = object : TypeToken<CurrentCurrencyData>() {}.type
+        return gson.toJson(currentCurrencyData,type)
     }
 
 

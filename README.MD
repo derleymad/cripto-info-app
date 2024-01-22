@@ -26,6 +26,7 @@ O LizWallet é uma aplicação inovadora focada em fornecer uma experiência apr
   <img src="images/news.jpeg" width="200" />
     <img src="images/wallet_1.jpeg" width="200" />
       <img src="images/wallet_2.jpeg" width="200" />
+<img src="images/currency_current.jpeg" width="200" />
 </p>
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
 

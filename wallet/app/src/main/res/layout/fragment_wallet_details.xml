@@ -7,6 +7,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.wallets.wallet.WalletDetailsFragment">
 
+    <ImageButton
+        android:id="@+id/back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@null"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:src="@drawable/baseline_arrow_back_24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <include
         android:id="@+id/include2"
         layout="@layout/card_item"
@@ -15,8 +29,26 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/back"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_transactions"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:listitem="@layout/transaction_item" />
+
 
     <TextView
         android:id="@+id/static_addresses"
@@ -36,14 +68,25 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_addresses"
         android:layout_width="match_parent"
-        tools:listitem="@layout/enderecos_item"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/static_addresses" />
+        app:layout_constraintTop_toBottomOf="@+id/static_addresses"
+        tools:listitem="@layout/enderecos_item" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Transações"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/static_addresses"
+        app:layout_constraintTop_toBottomOf="@id/rv_addresses" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

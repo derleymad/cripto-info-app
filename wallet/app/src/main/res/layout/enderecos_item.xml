@@ -2,8 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background_secondary"
     android:padding="16dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -13,6 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/static_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="32dp"
+        android:textColor="@color/white"
         android:ellipsize="middle"
         android:maxLines="1"
         app:layout_constraintBottom_toBottomOf="@+id/number"
@@ -44,15 +49,19 @@
 
         <TextView
             android:id="@+id/status"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="4dp"
             android:layout_marginEnd="4dp"
             android:layout_marginStart="4dp"
             android:textSize="14sp"
+            android:text="Receber"
             android:textColor="@color/white"
             android:textStyle="bold"
-            tools:text="Receive" />
+            tools:text="Receber" />
 
     </androidx.cardview.widget.CardView>
 

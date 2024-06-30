@@ -1,5 +1,7 @@
 package com.github.derleymad.lizwallet.ui.wallets
 
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.derleymad.lizwallet.R
 import com.github.derleymad.lizwallet.adapters.TransactionAdapter
 import com.github.derleymad.lizwallet.databinding.FragmentWalletsBinding
 import com.github.derleymad.lizwallet.ui.home.HomeViewModel
@@ -17,6 +20,7 @@ import com.github.derleymad.lizwallet.utils.converDataToBeaty
 import com.github.derleymad.lizwallet.utils.converSaldoToBeaty
 import com.github.derleymad.lizwallet.utils.extentions.navMainToWalletDetails
 import com.google.android.material.snackbar.Snackbar
+import java.io.File
 
 class WalletsFragment : Fragment() {
 
@@ -38,6 +42,26 @@ class WalletsFragment : Fragment() {
         val root: View = binding.root
         return root
     }
+    fun clearAppData(context: Context) {
+        val cacheDir = context.cacheDir
+        val appDir = context.filesDir.parentFile
+
+        deleteDir(cacheDir)
+        deleteDir(appDir)
+    }
+    fun deleteDir(dir: File?): Boolean {
+        if (dir != null && dir.isDirectory) {
+            val children = dir.list()
+            for (i in children.indices) {
+                val success = deleteDir(File(dir, children[i]))
+                if (!success) {
+                    return false
+                }
+            }
+        }
+        // Agora o diretório está vazio e pode ser excluído
+        return dir?.delete() ?: false
+    }
 
     private fun startRecyclerView() {
         adapter = TransactionAdapter()
@@ -50,18 +74,44 @@ class WalletsFragment : Fragment() {
         val matchResult = regex.find(s)
         return matchResult?.groupValues?.get(1)?.toDoubleOrNull()
     }
+    private fun showConfirmationDialog(textToCopy: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Confirmação de exclusão")
+        builder.setMessage("Deseja realmente excluir sua carteira Watch Only?")
+
+        builder.setPositiveButton("Sim") { dialog, which ->
+            clearAppData(requireContext())
+        }
+
+        builder.setNegativeButton("Não") { dialog, which ->
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.include.cardWallet.setOnClickListener{
-            Navigation.findNavController(view).navMainToWalletDetails()
-        }
 
+        val sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val xpub = sharedPreferences?.getString("xpub", null)
+        Log.i("xpubinfo",xpub.toString())
+
+        if(xpub==null){
+            binding.addWalletButton.visibility = View.VISIBLE
+            binding.removeWalletButton.visibility = View.GONE
+        }else{
+            binding.addWalletButton.visibility = View.INVISIBLE
+            binding.removeWalletButton.visibility = View.VISIBLE
+        }
         binding.addWalletButton.setOnClickListener {
 //            homeViewModel.watchOnlyAdress.postValue()
             val bottomSheetFragment = BottomSheetFragment()
             bottomSheetFragment.show(requireFragmentManager(), bottomSheetFragment.tag)
+        }
 
+        binding.removeWalletButton.setOnClickListener {
+            showConfirmationDialog("")
         }
         homeViewModel.stateBitcore.observe(viewLifecycleOwner){
             Log.i("testing",it.toString())
@@ -79,6 +129,9 @@ class WalletsFragment : Fragment() {
 
         binding.include.saldoWallet.setOnClickListener {
             changeCurrencySaldo()
+        }
+        binding.include.cardWallet.setOnClickListener{
+            Navigation.findNavController(view).navMainToWalletDetails()
         }
 
         homeViewModel.balance.observe(viewLifecycleOwner){

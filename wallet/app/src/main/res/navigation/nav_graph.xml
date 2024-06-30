@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_walletDetailsFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_walletDetailsFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -35,4 +38,9 @@
             android:id="@+id/action_currencyFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.github.derleymad.lizwallet.ui.wallets.wallet.address.AddressFragment"
+        android:label="fragment_address"
+        tools:layout="@layout/fragment_address" />
 </navigation>

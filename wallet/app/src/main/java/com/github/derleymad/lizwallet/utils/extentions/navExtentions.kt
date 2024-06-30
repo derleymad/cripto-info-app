@@ -14,6 +14,10 @@ private val navOptionsSlide = NavOptions.Builder()
 fun NavController.navMainToWalletDetails(destinationId: Int = 0) {
     this.navigate(R.id.action_mainFragment_to_walletDetailsFragment, null, navOptionsSlide)
 }
+
+fun NavController.navDetailsToAdress(destinationId: Int = 0) {
+    this.navigate(R.id.action_walletDetailsFragment_to_addressFragment, null, navOptionsSlide)
+}
 fun NavController.navMainToCurrentFragment(destinationId: Int = 0){
     this.navigate(R.id.action_mainFragment_to_currencyFragment,null, navOptionsSlide)
 }

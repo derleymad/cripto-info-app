@@ -14,8 +14,14 @@ import com.github.derleymad.lizwallet.model.news.RawNews
 import com.github.derleymad.lizwallet.repo.Repo
 import com.github.derleymad.lizwallet.utils.convert24toTimestamp
 import io.horizontalsystems.bitcoincore.BitcoinCore
+import io.horizontalsystems.bitcoincore.core.IPublicKeyManager
+import io.horizontalsystems.bitcoincore.core.IStorage
+import io.horizontalsystems.bitcoincore.core.scriptType
+import io.horizontalsystems.bitcoincore.extensions.toHexString
 import io.horizontalsystems.bitcoincore.models.BalanceInfo
 import io.horizontalsystems.bitcoincore.models.TransactionInfo
+import io.horizontalsystems.bitcoincore.transactions.scripts.ScriptType
+import io.horizontalsystems.bitcoincore.utils.AddressConverterChain
 import io.horizontalsystems.bitcoinkit.BitcoinKit
 import io.horizontalsystems.hdwalletkit.HDExtendedKey
 import io.horizontalsystems.hdwalletkit.HDWallet
@@ -35,10 +41,10 @@ class HomeViewModel(val app: Context, private val repo : Repo) : ViewModel() {
     val synced = MutableLiveData(false)
     val stateBitcore = MutableLiveData<BitcoinCore.KitState>()
     val isLoading = MutableLiveData(false)
+    val newReceiveAddress = MutableLiveData("")
 
     val currentCurrency= MutableLiveData<ListOfCurrencies>(null)
     val currentCurrencyDetails = MutableLiveData<CurrentCurrencyData>(null)
-
     val currentCurrencyHistoricalData = MutableLiveData<HistoricalData>(null)
 
     fun getCurrencies(){
@@ -108,7 +114,9 @@ class HomeViewModel(val app: Context, private val repo : Repo) : ViewModel() {
             market.postValue(repo.getMarket())
         }
     }
-    fun initBitoinKit(walletName: String? = "") {
+
+
+            fun initBitoinKit(walletName: String? = "") {
             isLoading.postValue(true)
             val sharedPreferences =
                 app?.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
@@ -123,7 +131,7 @@ class HomeViewModel(val app: Context, private val repo : Repo) : ViewModel() {
                     walletId = "$walletName",
                     syncMode = BitcoinCore.SyncMode.Api(),
                     networkType = BitcoinKit.NetworkType.MainNet,
-                    confirmationsThreshold = 6,
+                    confirmationsThreshold = 1,
                     purpose = HDWallet.Purpose.BIP84
                 )
                 bitcoinKit.listener = object : BitcoinKit.Listener {
@@ -138,14 +146,29 @@ class HomeViewModel(val app: Context, private val repo : Repo) : ViewModel() {
                             synced.postValue(true)
                             isLoading.postValue(false)
                             val disposables = CompositeDisposable()
-                            bitcoinKit.receiveAddress()
+                            newReceiveAddress.postValue(bitcoinKit.receiveAddress())
                             bitcoinKit.transactions().subscribe { transactionInfos ->
                                 this@HomeViewModel.transactionInfo.postValue(transactionInfos)
                                 Log.i("transactioninfo", transactionInfos.toString())
                             }.let {
                                 disposables.add(it)
                             }
-                            Log.i("wallet address" ,bitcoinKit.receiveAddress())
+
+
+                            val addressConverter = AddressConverterChain()
+                            val path = bitcoinKit.getPublicKeyByPath("0/4").path
+                            val publickey =bitcoinKit.receivePublicKey().publicKeyHash
+
+//                            Log.i("wallet address" ,addressConverter.convert(publickey, HDWallet.Purpose.BIP84).stringValue)
+
+                            try{
+
+                                addressConverter.convert(publickey,ScriptType.P2PKH)
+//                                Log.i("wallet address" ,bitcoinKit.getPublicKeyByPath("0/4").path)
+                            }catch (e: Exception){
+                                Log.i("wallet address", e.toString())
+                            }
+
 
                         } else {
                             Log.i("bitcoin testing sync", state.toString())

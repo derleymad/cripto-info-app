@@ -3,6 +3,7 @@ package com.github.derleymad.lizwallet.adapters
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.github.derleymad.lizwallet.ui.fiat.home.PortifolioFragment
 import com.github.derleymad.lizwallet.ui.home.HomeFragment
 import com.github.derleymad.lizwallet.ui.settings.SettingsFragment
 import com.github.derleymad.lizwallet.ui.wallets.WalletsFragment
@@ -13,7 +14,8 @@ class BottomViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentState
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> HomeFragment()
-            1 -> WalletsFragment()
+            1 -> PortifolioFragment()
+//            2 -> WalletsFragment()
             2 -> SettingsFragment()
             else -> throw IllegalArgumentException("Invalid position: $position")
         }

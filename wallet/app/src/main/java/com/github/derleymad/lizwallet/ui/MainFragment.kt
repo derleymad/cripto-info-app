@@ -41,7 +41,8 @@ class MainFragment : Fragment() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> viewPager.setCurrentItem(0,false)
-                R.id.navigation_dashboard -> viewPager.setCurrentItem(1,false)
+                R.id.navigation_portifolio-> viewPager.setCurrentItem(1,false)
+//                R.id.navigation_dashboard -> viewPager.setCurrentItem(2,false)
                 R.id.navigation_notifications -> viewPager.setCurrentItem(2,false)
             }
             true

@@ -11,8 +11,19 @@ private val navOptionsSlide = NavOptions.Builder()
     .setPopExitAnim(R.anim.slide_out_right)
     .build()
 
-fun NavController.navMainToWalletDetails(destinationId: Int = 0) {
-    this.navigate(R.id.action_mainFragment_to_walletDetailsFragment, null, navOptionsSlide)
+fun NavController.nanWalletToWalletDetails(destinationId: Int = 0) {
+    this.navigate(R.id.action_walletsFragment_to_walletDetailsFragment, null, navOptionsSlide)
+}
+
+
+fun NavController.navPortifiloToAdd(destinationId: Int = 0) {
+    this.navigate(R.id.action_mainFragment_to_adicionarPatrimonioFragment, null, navOptionsSlide)
+}
+fun NavController.navMainToWallet(destinationId: Int = 0) {
+    this.navigate(R.id.action_mainFragment_to_walletsFragment, null, navOptionsSlide)
+}
+fun NavController.navAddPortifilioToConectWatchOnly(destinationId: Int = 0) {
+    this.navigate(R.id.action_adicionarPatrimonioFragment_to_walletsFragment, null, navOptionsSlide)
 }
 
 fun NavController.navDetailsToAdress(destinationId: Int = 0) {

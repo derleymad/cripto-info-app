@@ -7,9 +7,14 @@
         android:title="@string/mercados" />
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/round_account_balance_wallet_24"
-        android:title="Carteiras" />
+        android:id="@+id/navigation_portifolio"
+        android:icon="@drawable/albums_outline"
+        android:title="Portifólio" />
+
+<!--    <item-->
+<!--        android:id="@+id/navigation_dashboard"-->
+<!--        android:icon="@drawable/round_account_balance_wallet_24"-->
+<!--        android:title="Carteiras" />-->
 
     <item
         android:id="@+id/navigation_notifications"

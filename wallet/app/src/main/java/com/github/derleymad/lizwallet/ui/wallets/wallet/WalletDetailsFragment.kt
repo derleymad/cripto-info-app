@@ -21,7 +21,6 @@ import com.github.derleymad.lizwallet.ui.home.HomeViewModel
 import com.github.derleymad.lizwallet.utils.converDataToBeaty
 import com.github.derleymad.lizwallet.utils.converSaldoToBeaty
 import com.github.derleymad.lizwallet.utils.extentions.navDetailsToAdress
-import com.github.derleymad.lizwallet.utils.extentions.navMainToWalletDetails
 import com.google.android.material.snackbar.Snackbar
 
 class WalletDetailsFragment : Fragment() {
@@ -77,8 +76,6 @@ class WalletDetailsFragment : Fragment() {
         }
        startRecyclerView(view)
     }
-
-
 
     private fun startRecyclerView(view: View) {
         adapter = TransactionAdapter()

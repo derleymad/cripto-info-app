@@ -28,6 +28,12 @@
         <action
             android:id="@+id/action_mainFragment_to_currencyFragment"
             app:destination="@id/currencyFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_adicionarPatrimonioFragment"
+            app:destination="@id/adicionarPatrimonioFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_walletsFragment"
+            app:destination="@id/walletsFragment" />
     </fragment>
     <fragment
         android:id="@+id/currencyFragment"
@@ -43,4 +49,22 @@
         android:name="com.github.derleymad.lizwallet.ui.wallets.wallet.address.AddressFragment"
         android:label="fragment_address"
         tools:layout="@layout/fragment_address" />
+    <fragment
+        android:id="@+id/adicionarPatrimonioFragment"
+        android:name="com.github.derleymad.lizwallet.ui.fiat.portifolio.adicionar.AdicionarPatrimonioFragment"
+        android:label="fragment_adicionar_patrimonio"
+        tools:layout="@layout/fragment_adicionar_patrimonio" >
+        <action
+            android:id="@+id/action_adicionarPatrimonioFragment_to_walletsFragment"
+            app:destination="@id/walletsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/walletsFragment"
+        android:name="com.github.derleymad.lizwallet.ui.wallets.WalletsFragment"
+        android:label="fragment_wallets"
+        tools:layout="@layout/fragment_wallets" >
+        <action
+            android:id="@+id/action_walletsFragment_to_walletDetailsFragment"
+            app:destination="@id/walletDetailsFragment" />
+    </fragment>
 </navigation>

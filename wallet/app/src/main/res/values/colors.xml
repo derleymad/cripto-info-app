@@ -16,4 +16,10 @@
     <color name="gray_light">#c8c7cc</color>
     <color name="gray_dark">#555555</color>
 
+
+    <!-- HUNAS COLORS-->
+    <color name="blue">#004595</color>
+    <color name="blue_light">#94C6FD</color>
+    <color name="gray_background">#fcfdff</color>
+
 </resources>

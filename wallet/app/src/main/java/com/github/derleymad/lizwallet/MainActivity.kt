@@ -11,6 +11,8 @@ import com.github.derleymad.lizwallet.services.BitcoinService
 import com.github.derleymad.lizwallet.ui.home.HomeViewModel
 import com.github.derleymad.lizwallet.ui.home.HomeViewModelFactory
 
+
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -32,7 +34,17 @@ class MainActivity : AppCompatActivity() {
         homeViewModel.getMarket()
         homeViewModel.getBrlPrice()
         homeViewModel.initBitoinKit()
-        val intent = Intent(this, BitcoinService::class.java)
+
+
+//        val params = NetworkParameters.fromID("8333")
+//// Provide the public key from which you want to derive addresses
+//        val xPub =
+//            "xpub6Cw8YA6Mko3xfkYpMQDZjGjgDTWUrJr87NBSiDPXqcmcSJTgxLXm3VCw3iQs4iC5ZrwpY3M21a43DZmiMzDXWzzhF1n7yxSXDnEHjJN6jwK"
+//        val wallet = Wallet.fromWatchingKeyB58(params,xPub,DeterministicHierarchy.BIP32_STANDARDISATION_TIME_SECS.toLong())
+//// Create watching wallet, with the help of Wallet class
+//
+//// Print the very first derived address from provided public key
+//        System.out.println("Receiving Address : " + wallet.currentReceiveAddress())
 //        intent.putExtra("walletName", "derleyzim")
 //        startService(intent)
 

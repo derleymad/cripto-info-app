@@ -96,15 +96,16 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
 
-
     //
     implementation("androidx.biometric:biometric-ktx:1.2.0-alpha05")
-
 
 
     //qr code
     implementation("com.google.zxing:core:3.4.1")
     implementation("com.journeyapps:zxing-android-embedded:4.2.0")
+
+    //test bitcoinj
+//    implementation("org.bitcoinj:bitcoinj-core:0.16.3")
 
 
 //    implementation("com.google.mlkit:translate:17.0.2")

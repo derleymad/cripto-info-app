@@ -18,7 +18,7 @@ import com.github.derleymad.lizwallet.ui.home.HomeViewModel
 import com.github.derleymad.lizwallet.ui.wallets.bottomsheet.BottomSheetFragment
 import com.github.derleymad.lizwallet.utils.converDataToBeaty
 import com.github.derleymad.lizwallet.utils.converSaldoToBeaty
-import com.github.derleymad.lizwallet.utils.extentions.navMainToWalletDetails
+import com.github.derleymad.lizwallet.utils.extentions.nanWalletToWalletDetails
 import com.google.android.material.snackbar.Snackbar
 import java.io.File
 
@@ -131,7 +131,7 @@ class WalletsFragment : Fragment() {
             changeCurrencySaldo()
         }
         binding.include.cardWallet.setOnClickListener{
-            Navigation.findNavController(view).navMainToWalletDetails()
+            Navigation.findNavController(view).nanWalletToWalletDetails()
         }
 
         homeViewModel.balance.observe(viewLifecycleOwner){
